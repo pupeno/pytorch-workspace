@@ -1,0 +1,4 @@
+[submodule "pytorch"]
+	path = pytorch
+	url = https://github.com/pupeno/pytorch.git
+	ignore = all

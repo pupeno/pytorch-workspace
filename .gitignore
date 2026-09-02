@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+scratch/**/*.log
+scratch/**/*.pt
+scratch/**/*.pth
