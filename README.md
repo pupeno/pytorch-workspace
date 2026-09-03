@@ -2,17 +2,14 @@
 
 This repository is a development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch). It keeps the devcontainer configuration, scratch experiments, and documentation together, while the `pytorch/` directory is a Git submodule pointing at Pablo's PyTorch fork.
 
-The layout is intentional:
+## Resolved tickets
 
-```text
-pytorch/                  # Open this directory in Zed
-├── .devcontainer/        # Development-container configuration
-├── README.md
-├── scratch/              # Local experiments and task notes
-└── pytorch/              # The actual PyTorch Git repository
-```
+- [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069): `posix_fallocate()` returns its error code directly, but PyTorch discarded it and read a stale `errno`; the issue included the correction later reproduced in [#176073](https://github.com/pytorch/pytorch/pull/176073) and [#176075](https://github.com/pytorch/pytorch/pull/176075).
 
-Because `pytorch/` is a tracked submodule rather than a gitignored directory, Zed indexes it normally. File Finder and project search do not need “include ignored files” enabled.
+## Pull requests
+
+- [#195633 - Minimal way to make `ReduceLROnPlateau` composable with `SequentialLR` and `ChainedScheduler`](https://github.com/pytorch/pytorch/pull/195633): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
+- [#195634 - PlateauLR, a composable version of ReduceLROnPlateau (and extensible LRSchedule step API to support it)](https://github.com/pytorch/pytorch/pull/195634): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
 
 ## Setup
 
@@ -74,12 +71,3 @@ Run local experiments:
 cd /workspaces/pytorch
 python scratch/rop-sequential-chained-composition/00_no_scheduler_baseline.py
 ```
-
-## Resolved tickets
-
-- [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069): `posix_fallocate()` returns its error code directly, but PyTorch discarded it and read a stale `errno`; the issue included the correction later reproduced in [#176073](https://github.com/pytorch/pytorch/pull/176073) and [#176075](https://github.com/pytorch/pytorch/pull/176075).
-
-## Pull requests
-
-- [#195633 - Minimal way to make `ReduceLROnPlateau` composable with `SequentialLR` and `ChainedScheduler`](https://github.com/pytorch/pytorch/pull/195633): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
-- [#195634 - PlateauLR, a composable version of ReduceLROnPlateau (and extensible LRSchedule step API to support it)](https://github.com/pytorch/pytorch/pull/195634): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
