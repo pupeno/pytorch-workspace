@@ -1,0 +1,3 @@
+# Snapshots of PyTorch's generated compile database (~14 MB each), not source.
+compile_commands.raw.json
+compile_commands.root-backup.json

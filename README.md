@@ -34,8 +34,8 @@ git switch <your-branch>
 Once inside the devcontainer, build PyTorch:
 
 ```bash
-cd /workspaces/pytorch/pytorch
-python -m pip install -e . -v --no-build-isolation
+cd /workspaces/pytorch
+./build-pytorch.sh
 ```
 
 Pull PyTorch and update its nested submodules at the same time:
