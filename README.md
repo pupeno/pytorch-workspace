@@ -2,11 +2,11 @@
 
 This repository is Pablo's development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch).
 
-It keeps the devcontainer configuration, scratch experiments, useful scripts,and documentation together, while the `pytorch/` contains the PyTorch source code itself.
+It keeps the devcontainer configuration, scratch experiments, useful scripts, and documentation together, while the `pytorch/` contains the PyTorch source code itself.
 
 ## Resolved tickets
 
-- [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069): `posix_fallocate()` returns its error code directly, but PyTorch discarded it and read a stale `errno`; the issue included the correction later reproduced in [#176073](https://github.com/pytorch/pytorch/pull/176073) and [#176075](https://github.com/pytorch/pytorch/pull/176075).
+- [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069).
 
 ## Pull requests
 
@@ -23,7 +23,7 @@ Clone this repository into a directory named `pytorch`, open that outer director
 git clone https://github.com/pupeno/pytorch-workspace.git pytorch
 ```
 
-Open it in [Zed](https://zed.dev), then reopen it in its devcontainer. Once inside the devcontainer, build PyTorch:
+Build PyTorch:
 
 ```bash
 cd /workspaces/pytorch
