@@ -1,6 +1,8 @@
 # Pablo's PyTorch Contributing Workspace
 
-This repository is a development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch). It keeps the devcontainer configuration, scratch experiments, and documentation together, while the `pytorch/` directory is a Git submodule pointing at Pablo's PyTorch fork.
+This repository is Pablo's development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch).
+
+It keeps the devcontainer configuration, scratch experiments, useful scripts,and documentation together, while the `pytorch/` contains the PyTorch source code itself.
 
 ## Resolved tickets
 
@@ -19,24 +21,16 @@ Clone this repository into a directory named `pytorch`, open that outer director
 
 ```bash
 git clone https://github.com/pupeno/pytorch-workspace.git pytorch
-cd pytorch
 ```
 
-The devcontainer's post-create command initializes the PyTorch checkout and all of its nested submodules automatically. No separate submodule setup command is required.
-
-The outer repository only manages the workspace files and the initial PyTorch commit. It deliberately ignores the submodule's later branch movement and working-tree changes, so normal PyTorch development does not make the wrapper repository look dirty. Run PyTorch Git commands from `pytorch/`:
-
-```bash
-cd pytorch
-git switch <your-branch>
-```
-
-Once inside the devcontainer, build PyTorch:
+Open it in [Zed](https://zed.dev), then reopen it in its devcontainer. Once inside the devcontainer, build PyTorch:
 
 ```bash
 cd /workspaces/pytorch
 ./build-pytorch.sh
 ```
+
+## Common Commands
 
 Pull PyTorch and update its nested submodules at the same time:
 
@@ -45,9 +39,10 @@ cd /workspaces/pytorch/pytorch
 git pull --recurse-submodules
 ```
 
-Update submodules after `git pull`:
+Update submodules after `git pull` (without `--recurse-submodules`):
 
 ```bash
+cd /workspaces/pytorch/pytorch
 git submodule update --init --recursive
 ```
 
