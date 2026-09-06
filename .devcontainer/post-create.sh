@@ -32,14 +32,8 @@ echo "==> Installing uv"
 command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-# PyTorch's own submodules, on the other hand, are real dependencies pinned to
-# exact commits, and the build needs them.
-echo "==> Fetching PyTorch's git submodules"
-cd "$workspace_dir/pytorch"
-git submodule sync --recursive
-git submodule update --init --recursive
-
 echo "==> Setting up PyTorch's Python venv"
+cd "$workspace_dir/pytorch"
 uv venv --allow-existing
 source .venv/bin/activate
 uv pip install -r requirements.txt

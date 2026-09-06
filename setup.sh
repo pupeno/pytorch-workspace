@@ -48,4 +48,8 @@ if ! git -C "$pytorch_dir" remote get-url upstream >/dev/null 2>&1; then
     git -C "$pytorch_dir" remote add upstream https://github.com/pytorch/pytorch.git
 fi
 
+echo "==> Fetching PyTorch's git submodules"
+git -C "$pytorch_dir" submodule sync --recursive
+git -C "$pytorch_dir" submodule update --init --recursive --jobs 8
+
 echo "==> Project ready at $project_dir"
