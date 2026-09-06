@@ -4,6 +4,8 @@ This repository is Pablo's development workspace for contributing to [PyTorch](h
 
 It keeps the devcontainer configuration, scratch experiments, useful scripts, and documentation together, while the `pytorch/` contains the PyTorch source code itself.
 
+`pytorch/` is a plain clone of [the fork](https://github.com/pupeno/pytorch) that this repository ignores, not a submodule of it. The devcontainer's post-create script clones it on first start. Nothing here records which PyTorch commit is checked out, so working in `pytorch/` never dirties this repository, and no git command run in the workspace can move the branch being worked on.
+
 ## Resolved tickets
 
 - [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069).
@@ -31,6 +33,8 @@ cd /workspaces/pytorch
 ```
 
 ## Common Commands
+
+PyTorch has submodules of its own, pinned to exact commits the build needs. These commands are about those, and belong in `pytorch/`.
 
 Pull PyTorch and update its nested submodules at the same time:
 
