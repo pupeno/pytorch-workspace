@@ -34,20 +34,11 @@ build-pytorch.sh
 
 ## Common Commands
 
-PyTorch has submodules of its own, pinned to exact commits the build needs. These commands are about those, and belong in `pytorch/`.
-
-Pull PyTorch and update its nested submodules at the same time:
+Pull PyTorch:
 
 ```bash
 cd /workspaces/pytorch/pytorch
 git pull --recurse-submodules
-```
-
-Update submodules after `git pull` (without `--recurse-submodules`):
-
-```bash
-cd /workspaces/pytorch/pytorch
-git submodule update --init --recursive
 ```
 
 Run all tests:
