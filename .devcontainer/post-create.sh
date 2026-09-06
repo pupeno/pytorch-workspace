@@ -51,8 +51,3 @@ for shell_rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
     grep -qxF 'export MAX_JOBS=8' "$shell_rc" || echo 'export MAX_JOBS=8' >> "$shell_rc"
     grep -qxF "source $workspace_dir/pytorch/.venv/bin/activate" "$shell_rc" || echo "source $workspace_dir/pytorch/.venv/bin/activate" >> "$shell_rc"
 done
-
-# `scratch/` deliberately has no environment of its own: experiments there must
-# exercise the PyTorch built from `pytorch/`, which the venv activated above
-# provides. Installing `torch` for `scratch/` would pull a release from PyPI and
-# silently shadow the local build.
