@@ -27,12 +27,11 @@
         "source=pytorch-home,target=/home/vscode,type=volume"
     ],
 
-    // Make CUDA discoverable to terminals, editor tasks, and extension builds.
+    // Make workspace commands and CUDA available throughout the devcontainer.
     "remoteEnv": {
         "CUDA_HOME": "/usr/local/cuda",
-        "PATH": "/usr/local/cuda/bin:${containerEnv:PATH}",
-        // Cap parallel build jobs so PyTorch compiles don't exhaust RAM.
-        "MAX_JOBS": "8"
+        "PATH": "/workspaces/pytorch/workspace/bin:/usr/local/cuda/bin:${containerEnv:PATH}",
+        "MAX_JOBS": "8" // Cap parallel build jobs so PyTorch compiles don't exhaust RAM.
     },
 
     // Runs the post-create script to set up the container.

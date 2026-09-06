@@ -16,7 +16,7 @@
 
 set -euo pipefail
 
-workspace_repo="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+workspace_repo="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
 project_root="$(dirname "$workspace_repo")"
 
 refilter() {

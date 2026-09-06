@@ -29,8 +29,7 @@ Open the outer `pytorch/` directory in an editor with devcontainer support, then
 Build PyTorch:
 
 ```bash
-cd /workspaces/pytorch/workspace
-./build-pytorch.sh
+build-pytorch.sh
 ```
 
 ## Common Commands
