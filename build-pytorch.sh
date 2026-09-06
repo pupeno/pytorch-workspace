@@ -16,14 +16,15 @@
 
 set -euo pipefail
 
-workspace="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+workspace_repo="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+project_root="$(dirname "$workspace_repo")"
 
 refilter() {
   echo
   echo "==> restoring clangd compile-database filter"
-  python3 "$workspace/scratch/clangd/filter-compile-commands.py"
+  python3 "$workspace_repo/clangd/filter-compile-commands.py"
 }
 trap refilter EXIT
 
-cd "$workspace/pytorch"
+cd "$project_root/pytorch"
 python -m pip install -e . -v --no-build-isolation "$@"

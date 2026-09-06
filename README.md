@@ -2,10 +2,7 @@
 
 This repository is Pablo's development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch).
 
-It keeps the devcontainer configuration, scratch experiments, useful scripts, and documentation together, while the `pytorch/` contains the PyTorch source code itself.
-
-`pytorch/` is a plain clone of [the fork](https://github.com/pupeno/pytorch) that this repository ignores, not a submodule of it. The devcontainer's post-create script clones it on first start. Nothing here records which PyTorch commit is checked out, so working in `pytorch/` never dirties this repository, and no git command run in the workspace can move the branch being worked on.
-
+It keeps the devcontainer configuration, scratch experiments, useful scripts, and documentation, useful links, etc. all together.
 ## Resolved tickets
 
 - [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069).
@@ -19,16 +16,20 @@ It keeps the devcontainer configuration, scratch experiments, useful scripts, an
 
 Complete NVIDIA's [host driver and container-toolkit setup](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) to expose the GPU.
 
-Clone this repository into a directory named `pytorch`, open that outer directory in [Zed](https://zed.dev), then reopen it in its devcontainer:
+Clone the workspace and run its setup script:
 
 ```bash
-git clone https://github.com/pupeno/pytorch-workspace.git pytorch
+mkdir pytorch
+git clone https://github.com/pupeno/pytorch-workspace.git pytorch/workspace
+pytorch/workspace/setup.sh
 ```
+
+Open the outer `pytorch/` directory in an editor with devcontainer support, then reopen it in its devcontainer.
 
 Build PyTorch:
 
 ```bash
-cd /workspaces/pytorch
+cd /workspaces/pytorch/workspace
 ./build-pytorch.sh
 ```
 
@@ -67,6 +68,6 @@ python test/optim/test_lrscheduler.py
 Run local experiments:
 
 ```bash
-cd /workspaces/pytorch
+cd /workspaces/pytorch/workspace
 python scratch/rop-sequential-chained-composition/00_no_scheduler_baseline.py
 ```

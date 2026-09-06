@@ -1,8 +1,16 @@
 # Workspace layout
 
-This workspace directory is **not** the PyTorch Git repository.
+The project root at `/workspaces/pytorch/` is a plain directory containing two
+sibling Git repositories:
 
-- `/workspaces/pytorch/pytorch/` is the PyTorch repository. Run all Git commands,
-  inspect diffs, and make source changes from this directory.
-- `/workspaces/pytorch/scratch/` contains task context and experiments. It is not
-  part of the repository being reviewed unless a task explicitly says otherwise.
+- `/workspaces/pytorch/pytorch/` is the PyTorch repository. Run PyTorch Git
+  commands, inspect its diffs, and make source changes there.
+- `/workspaces/pytorch/workspace/` is the workspace repository. It owns the
+  devcontainer and editor configuration, scripts, notes, and experiments.
+- `/workspaces/pytorch/workspace/scratch/` contains task context and experiments.
+  It is not part of the PyTorch repository unless a task explicitly says to
+  move a change from an experiment into PyTorch.
+
+The `.devcontainer` and `.zed` entries at the project root are symlinks into the
+workspace repository. Keep the two repositories as siblings; do not turn the
+PyTorch checkout into a submodule or nest it inside the workspace repository.

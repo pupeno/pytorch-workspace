@@ -32,15 +32,6 @@ echo "==> Installing uv"
 command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-# `pytorch/` is a plain clone that this repository ignores, not a submodule of
-# it. Nothing here records which PyTorch commit is checked out, so no git
-# command run in the workspace can ever move the branch you are working on.
-echo "==> Cloning PyTorch"
-if [ ! -e "$workspace_dir/pytorch/.git" ]; then
-    git clone https://github.com/pupeno/pytorch.git "$workspace_dir/pytorch"
-    git -C "$workspace_dir/pytorch" remote add upstream https://github.com/pytorch/pytorch.git
-fi
-
 # PyTorch's own submodules, on the other hand, are real dependencies pinned to
 # exact commits, and the build needs them.
 echo "==> Fetching PyTorch's git submodules"
