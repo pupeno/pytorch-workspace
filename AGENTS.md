@@ -7,8 +7,8 @@ sibling Git repositories:
   commands, inspect its diffs, and make source changes there.
 - `/workspaces/pytorch/workspace/` is the workspace repository. It owns the
   devcontainer and editor configuration, scripts, notes, and experiments.
-- `/workspaces/pytorch/workspace/scratch/` contains task context and experiments.
-  It is not part of the PyTorch repository unless a task explicitly says to
+- Experiment directories live directly under `/workspaces/pytorch/workspace/`.
+  They are not part of the PyTorch repository unless a task explicitly says to
   move a change from an experiment into PyTorch.
 
 The `.devcontainer` and `.zed` entries at the project root are symlinks into the

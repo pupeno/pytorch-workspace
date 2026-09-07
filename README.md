@@ -2,7 +2,7 @@
 
 This repository is Pablo's development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch).
 
-It keeps the devcontainer configuration, scratch experiments, useful scripts, and documentation, useful links, etc. all together.
+It keeps the devcontainer configuration, experiments, useful scripts, documentation, and useful links together.
 ## Resolved tickets
 
 - [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069).
@@ -59,5 +59,5 @@ Run local experiments:
 
 ```bash
 cd /workspaces/pytorch/workspace
-python scratch/rop-sequential-chained-composition/00_no_scheduler_baseline.py
+python nested_lr_scheduler_initial_step/experiment.py
 ```
