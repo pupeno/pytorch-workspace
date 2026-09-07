@@ -3,14 +3,20 @@
 This repository is Pablo's development workspace for contributing to [PyTorch](https://github.com/pytorch/pytorch).
 
 It keeps the devcontainer configuration, experiments, useful scripts, documentation, and useful links together.
+
+## Open tickets
+
+- [#196243 - `SequentialLR` changes the schedule of nested composite schedulers](https://github.com/pytorch/pytorch/issues/196243).
+
 ## Resolved tickets
 
 - [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069).
 
 ## Pull requests
 
-- [#195633 - Minimal way to make `ReduceLROnPlateau` composable with `SequentialLR` and `ChainedScheduler`](https://github.com/pytorch/pytorch/pull/195633): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
+- [#196242 - Fix nested lr scheduler initial step](https://github.com/pytorch/pytorch/pull/196242): fixes [#196243](https://github.com/pytorch/pytorch/issues/196243).
 - [#195634 - PlateauLR, a composable version of ReduceLROnPlateau (and extensible LRSchedule step API to support it)](https://github.com/pytorch/pytorch/pull/195634): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
+- [#195633 - Minimal way to make `ReduceLROnPlateau` composable with `SequentialLR` and `ChainedScheduler`](https://github.com/pytorch/pytorch/pull/195633): fixes [#68978](https://github.com/pytorch/pytorch/issues/68978) and [#110761](https://github.com/pytorch/pytorch/issues/110761).
 
 ## Setup
 
