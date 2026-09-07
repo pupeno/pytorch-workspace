@@ -2,24 +2,15 @@
 """Warm the learning rate up, then reduce it when the loss stops improving.
 
 `SequentialLR` runs one scheduler at a time and switches at a milestone: a
-`LinearLR` ramp for the first few epochs, then `ReduceLROnPlateau` for the rest
-of training. `scheduler.step(...)` is a single call for both -- the warmup
-ignores the metric, the plateau scheduler watches it.
-
-On `main` the `SequentialLR` construction below is rejected outright:
-
-    ValueError: SequentialLR does not support `ReduceLROnPlateau` scheduler as
-    it requires additional kwargs to be specified when calling `step`, but got
-    one at index 1 in the given schedulers sequence.
-
-This branch removes that rejection and routes the metric to whichever scheduler
-is active. Each epoch below names which of the two moved the learning rate, and
-why.
+`LinearLR` ramp for the first few epochs, then the plateau scheduler for the
+rest of training. `scheduler.step(...)` is a single call for both -- the warmup
+ignores the metric, the plateau scheduler watches it. Each epoch names which of
+the two moved the learning rate, and why.
 """
 
 import torch
 from torch import nn
-from torch.optim.lr_scheduler import LinearLR, ReduceLROnPlateau, SequentialLR
+from torch.optim.lr_scheduler import LinearLR, PlateauLR, SequentialLR
 
 
 EPOCHS = 40
@@ -37,9 +28,9 @@ model = nn.Linear(1, 1)
 optimizer = torch.optim.SGD(model.parameters(), lr=0.5)
 
 warmup = LinearLR(optimizer, start_factor=0.1, total_iters=MILESTONE)
-plateau = ReduceLROnPlateau(optimizer, factor=FACTOR, patience=PATIENCE)
+plateau = PlateauLR(optimizer, factor=FACTOR, patience=PATIENCE)
 
-# This is the line that raises on `main`.
+# Whether this line is accepted at all is the whole point of the demo.
 scheduler = SequentialLR(optimizer, schedulers=[warmup, plateau], milestones=[MILESTONE])
 
 loss_fn = nn.MSELoss()
@@ -60,9 +51,7 @@ for epoch in range(EPOCHS):
 
     lr_before = optimizer.param_groups[0]["lr"]
     best_before = plateau.best
-    # One call, whichever scheduler is active: the metric is only looked at once
-    # the milestone has handed over to ReduceLROnPlateau.
-    scheduler.step(loss.item())
+    scheduler.step(metrics=loss.item())
     lr_after = optimizer.param_groups[0]["lr"]
     peak_lr = max(peak_lr, lr_before, lr_after)
 
