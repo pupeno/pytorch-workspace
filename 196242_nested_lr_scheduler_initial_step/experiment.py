@@ -23,8 +23,8 @@ def run_sequential_lr_example():
     one_level_scheduler = SequentialLR(
         one_level_optimizer,
         [
-            ConstantLR(one_level_optimizer, factor=0.5, total_iters=2),
-            ConstantLR(one_level_optimizer, factor=0.2, total_iters=10),
+            ConstantLR(one_level_optimizer, factor=0.2),
+            ConstantLR(one_level_optimizer, factor=0.5),
         ],
         milestones=[2],
     )
@@ -36,8 +36,8 @@ def run_sequential_lr_example():
         [SequentialLR(
             two_level_optimizer,
             [
-                ConstantLR(two_level_optimizer, factor=0.5, total_iters=2),
-                ConstantLR(two_level_optimizer, factor=0.2, total_iters=10),
+                ConstantLR(two_level_optimizer, factor=0.2),
+                ConstantLR(two_level_optimizer, factor=0.5),
             ],
             milestones=[2],
         )],
