@@ -16,8 +16,74 @@ from torch.optim.lr_scheduler import (
 
 STEPS = 5
 
+def run_sequential_lr_example():
+    print("\nSequentialLR:")
 
-def collect_lrs(scheduler):
+    one_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
+    one_level_scheduler = SequentialLR(
+        one_level_optimizer,
+        [
+            ConstantLR(one_level_optimizer, factor=0.5, total_iters=2),
+            ConstantLR(one_level_optimizer, factor=0.2, total_iters=10),
+        ],
+        milestones=[2],
+    )
+
+    # SequentialLR inside SequentialLR
+    two_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
+    two_level_scheduler = SequentialLR(
+        two_level_optimizer,
+        [SequentialLR(
+            two_level_optimizer,
+            [
+                ConstantLR(two_level_optimizer, factor=0.5, total_iters=2),
+                ConstantLR(two_level_optimizer, factor=0.2, total_iters=10),
+            ],
+            milestones=[2],
+        )],
+        milestones=[],
+    )
+
+    one_level_lrs = _collect_lrs(one_level_scheduler)
+    two_level_lrs = _collect_lrs(two_level_scheduler)
+    _print_comparison(one_level_lrs, two_level_lrs)
+
+def run_chained_scheduler_example():
+    print("\nChainedScheduler:")
+    one_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
+    one_level_scheduler = ChainedScheduler(
+        [
+            ConstantLR(one_level_optimizer, factor=0.5, total_iters=2),
+            ExponentialLR(one_level_optimizer, gamma=0.9),
+        ],
+        optimizer=one_level_optimizer,
+    )
+
+    # ChainedScheduler inside SequentialLR
+    two_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
+    two_level_scheduler = SequentialLR(
+        two_level_optimizer,
+        [ChainedScheduler(
+            [
+                ConstantLR(two_level_optimizer, factor=0.5, total_iters=2),
+                ExponentialLR(two_level_optimizer, gamma=0.9),
+            ],
+            optimizer=two_level_optimizer,
+        )],
+        milestones=[],
+    )
+
+    one_level_lrs = _collect_lrs(one_level_scheduler)
+    two_level_lrs = _collect_lrs(two_level_scheduler)
+    _print_comparison(one_level_lrs, two_level_lrs)
+
+
+def main():
+    run_sequential_lr_example()
+    run_chained_scheduler_example()
+
+
+def _collect_lrs(scheduler):
     lrs = []
     for _ in range(STEPS):
         lrs.append(scheduler.get_last_lr()[0])
@@ -26,41 +92,7 @@ def collect_lrs(scheduler):
     return lrs
 
 
-def make_sequential(optimizer):
-    return SequentialLR(
-        optimizer,
-        [
-            ConstantLR(optimizer, factor=0.5, total_iters=2),
-            ConstantLR(optimizer, factor=0.2, total_iters=10),
-        ],
-        milestones=[2],
-    )
-
-
-def make_chained(optimizer):
-    return ChainedScheduler(
-        [
-            ConstantLR(optimizer, factor=0.5, total_iters=2),
-            ExponentialLR(optimizer, gamma=0.9),
-        ],
-        optimizer=optimizer,
-    )
-
-
-def print_comparison(name, make_scheduler):
-    two_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
-    two_level_scheduler = SequentialLR(
-        two_level_optimizer,
-        [make_scheduler(two_level_optimizer)],
-        milestones=[],
-    )
-
-    one_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
-    one_level_scheduler = make_scheduler(one_level_optimizer)
-
-    two_level_lrs = collect_lrs(two_level_scheduler)
-    one_level_lrs = collect_lrs(one_level_scheduler)
-
+def _print_comparison(one_level_lrs, two_level_lrs):
     headers = ["", *(f"Epoch {epoch}" for epoch in range(STEPS))]
     rows = [
         ["One level", *(f"{lr:g}" for lr in one_level_lrs)],
@@ -80,7 +112,6 @@ def print_comparison(name, make_scheduler):
             values.append(value)
         print("| " + " | ".join(values) + " |")
 
-    print(f"\n{name}:")
     print_row(headers)
     print("|-" + "-|-".join("-" * width for width in widths) + "-|")
     print_row(rows[0])
@@ -96,7 +127,5 @@ def print_comparison(name, make_scheduler):
     print_row(rows[1], styles)
 
 
-print(f"PyTorch {torch.__version__}")
-print(f"Imported from {torch.__file__}")
-print_comparison("SequentialLR", make_sequential)
-print_comparison("ChainedScheduler", make_chained)
+if __name__ == "__main__":
+    main()
