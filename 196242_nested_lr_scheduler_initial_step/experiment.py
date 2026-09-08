@@ -53,7 +53,7 @@ def run_chained_scheduler_example():
     one_level_optimizer = SGD([Parameter(torch.zeros(1))], lr=0.1)
     one_level_scheduler = ChainedScheduler(
         [
-            ConstantLR(one_level_optimizer, factor=0.5, total_iters=2),
+            ConstantLR(one_level_optimizer, factor=0.5),
             ExponentialLR(one_level_optimizer, gamma=0.9),
         ],
         optimizer=one_level_optimizer,
@@ -65,7 +65,7 @@ def run_chained_scheduler_example():
         two_level_optimizer,
         [ChainedScheduler(
             [
-                ConstantLR(two_level_optimizer, factor=0.5, total_iters=2),
+                ConstantLR(two_level_optimizer, factor=0.5),
                 ExponentialLR(two_level_optimizer, gamma=0.9),
             ],
             optimizer=two_level_optimizer,
