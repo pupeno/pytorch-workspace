@@ -4,11 +4,11 @@ This repository is Pablo's development workspace for contributing to [PyTorch](h
 
 It keeps the devcontainer configuration, experiments, useful scripts, documentation, and useful links together.
 
-## Open tickets
+## Open Tickets
 
 - [#196243 - `SequentialLR` changes the schedule of nested composite schedulers](https://github.com/pytorch/pytorch/issues/196243).
 
-## Resolved tickets
+## Closed Tickets
 
 - [#176069 - `posix_fallocate` error handling reads stale `errno` instead of return value](https://github.com/pytorch/pytorch/issues/176069).
 
