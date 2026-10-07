@@ -11,6 +11,8 @@ sibling Git repositories:
   They are not part of the PyTorch repository unless a task explicitly says to
   move a change from an experiment into PyTorch.
 
-The `.devcontainer` and `.zed` entries at the project root are symlinks into the
-workspace repository. Keep the two repositories as siblings; do not turn the
-PyTorch checkout into a submodule or nest it inside the workspace repository.
+`setup.sh` links configuration from the workspace repository into the project
+root. The script defines which links are managed.
+
+Keep the two repositories as siblings; do not turn the PyTorch checkout into a
+submodule or nest it inside the workspace repository.

@@ -6,7 +6,7 @@ workspace_dir="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 project_dir="$(dirname "$workspace_dir")"
 workspace_name="$(basename "$workspace_dir")"
 pytorch_dir="$project_dir/pytorch"
-links=(.devcontainer .zed)
+links=(.devcontainer .zed AGENTS.md)
 
 if git -C "$project_dir" rev-parse --show-toplevel >/dev/null 2>&1; then
     echo "ERROR: $project_dir must not be inside a Git repository." >&2
