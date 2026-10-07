@@ -37,8 +37,8 @@ done
 if [ ! -e "$pytorch_dir" ]; then
     echo "==> Cloning PyTorch"
     git clone https://github.com/pupeno/pytorch.git "$pytorch_dir"
-elif ! git -C "$pytorch_dir" rev-parse --git-dir >/dev/null 2>&1; then
-    echo "ERROR: $pytorch_dir exists but is not a Git repository." >&2
+elif [ "$(git -C "$pytorch_dir" rev-parse --show-toplevel 2>/dev/null)" != "$pytorch_dir" ]; then
+    echo "ERROR: $pytorch_dir exists but is not a Git repository root." >&2
     exit 1
 else
     echo "==> PyTorch is already cloned"
