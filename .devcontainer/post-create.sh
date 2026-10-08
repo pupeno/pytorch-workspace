@@ -9,9 +9,6 @@ echo "==> Upgrading packages"
 sudo apt-get update
 sudo apt-get upgrade --yes
 
-echo "==> Installing PyTorch's build dependencies"
-sudo apt-get install --yes build-essential cmake ninja-build python3 python3-pip python3-dev python3-venv libopenblas-dev
-
 echo "==> Installing ripgrep"
 sudo apt-get install --yes ripgrep
 
@@ -31,6 +28,9 @@ npm install -g @openai/codex @anthropic-ai/claude-code
 echo "==> Installing uv"
 command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
+
+echo "==> Installing PyTorch's build dependencies"
+sudo apt-get install --yes build-essential cmake ninja-build python3 python3-pip python3-dev python3-venv libopenblas-dev
 
 echo "==> Setting up PyTorch's Python venv"
 cd "$workspace_dir/pytorch"
