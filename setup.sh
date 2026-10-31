@@ -34,6 +34,8 @@ for name in "${links[@]}"; do
     echo "    $name -> $target"
 done
 
+mkdir -p "$project_dir/tmp"
+
 if [ ! -e "$pytorch_dir" ]; then
     echo "==> Cloning PyTorch"
     git clone https://github.com/pupeno/pytorch.git "$pytorch_dir"
