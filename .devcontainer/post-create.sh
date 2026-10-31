@@ -38,6 +38,9 @@ uv venv --allow-existing
 source .venv/bin/activate
 uv pip install -r requirements.txt
 
+echo "==> Installing PyTorch's pinned Triton version"
+bash scripts/install_triton_wheel.sh
+
 echo "==> Setting up lintrunner"
 make setup-lint
 
